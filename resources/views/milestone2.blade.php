@@ -77,6 +77,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('create_designation') }}">Create Designation</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('leaves.create') }}">Leaves</a>
+            </li>
         </ul>
     </div>
 </nav>

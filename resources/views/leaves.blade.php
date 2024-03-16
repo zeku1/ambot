@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Database</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            padding: 70px;
+        }
+        h2{
+            margin-top: 50px;
+            text-align: center;
+        }
+        table, th, td {
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            max-width: 2400px;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+        }
+        nav {
+            background-color: #007bff; /* Bootstrap primary color */
+        }
+        nav a {
+            color: white;
+            margin-right: 15px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .search-container {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .search-box {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 5px;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+    .search-button {
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+    }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <a class="navbar-brand" href="#">Employee Database</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto"> <!-- ml-auto to align links to the right -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('employees.index') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('create_department') }}">Create Department</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('create_designation') }}">Create Designation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('create_designation') }}">Leaves</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <h2>Leaves</h2>
+
+    <!-- Button to trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addLeaves">
+        Create Leave
+    </button>
+
+    <!-- Table to display data -->
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Start of Leave</th>
+                <th>End of Leave</th>
+                <th>Leave Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($leaves as $leave)
+            <tr>
+                <td>{{ $leave->id }}</td>
+                <td>{{ $leave->employees_id }}</td>
+                <td>{{ $leave->start_leave }}</td>
+                <td>{{ $leave->end_leave }}</td>
+                <td>{{ $leave->leave_type }}</td>
+                <td>{{ $leave->status }}</td>
+                <td>
+                    <a href="{{ route('leaves.edit', $leave->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('leaves.destroy', $leave->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this leave?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+<!-- Modal for adding new employee -->
+<div class="modal" id="addLeaves" tabindex="-1" role="dialog" aria-labelledby="addLeaves" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addLeaves">Add Leave</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form for adding new leaves -->
+                <form action="{{ route('leaves.store') }}" method="POST">
+    @csrf
+        <!-- Dropdown for Employee -->
+        <div class="form-group">
+            <label for="employee_id">Employee</label>
+            <select class="form-control" id="employee_id" name="employee_id" required onchange="handleDropdownSelection(this.value)">
+                <option value="" disabled selected>Select Employee</option>
+                @foreach($employees as $employee)
+                    <option value="{{ $employee->id }}">{{ $employee->employee_name }}</option>
+                @endforeach
+            </select>
+        </div>
+    <div class="form-group">
+        <label for="start_leave">Start of Leave</label>
+        <input type="text" class="form-control" id="start_leave" name="start_leave" required>
+    </div>
+    <div class="form-group">
+        <label for="end_leave">End of Leave</label>
+        <input type="text" class="form-control" id="end_leave" name="end_leave" required>
+    </div>
+    <div class="form-group">
+        <label for="leave_type">Leave Type</label>
+        <input type="text" class="form-control" id="leave_type" name="leave_type">
+    </div>
+    <div class="form-group">
+    <label for="status">Status</label>
+    <input type="text" class="form-control" id="status" name="status" required>
+        </div>
+
+    <!-- Add other form fields as needed -->
+    <button type="submit" class="btn btn-primary">Add Employee</button>
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function handleDropdownSelection(dropdownId) {
+        console.log('Dropdown ID:', dropdownId);
+    if (dropdownId === 'new_department') {
+
+        window.location.href = "{{ route('departments.create') }}";
+    } else if (dropdownId === 'new_designation') {
+
+        window.location.href = "{{ route('designations.create') }}";
+    } else if (dropdownId === 'milestone2_redirect') {
+
+            window.location.href = "{{ route('milestone2') }}";
+        } else {
+        var designationId = document.getElementById('designation_id').value;
+        var departmentId = document.getElementById('department_id').value;
+
+
+        document.getElementById('designation_name').value = $('#designation_id option:selected').text();
+        document.getElementById('department_name').value = $('#department_id option:selected').text();
+    }
+    console.log('Designation ID:', designationId);
+    console.log('Department ID:', departmentId);
+}
+</script>
+
+</body>
+</html>

@@ -5,6 +5,8 @@ use \App\Http\Controllers\DatabaseController;
 use \App\Http\Controllers\DepartmentController;
 use \App\Http\Controllers\DesignationController;
 use \App\Http\Controllers\AssignDesignationController;
+use App\Http\Controllers\LeavesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +58,7 @@ Route::get('/employees/search', [DatabaseController::class, 'search'])->name('em
 Route::get('/search_results', [DatabaseController::class, 'search'])->name('search_results');
 
 Route::delete('/designations/{id}', 'DesignationController@destroy')->name('designations.destroy');
+
+Route::post('/leaves/store', [LeavesController::class, 'store'])->name('leaves.store');
+
+Route::get('/leaves/create', [LeavesController::class, 'create'])->name('leaves.create');

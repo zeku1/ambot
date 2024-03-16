@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\Employee;
 use App\Models\Leaves;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class LeavesController extends Controller
 {
@@ -12,7 +16,11 @@ class LeavesController extends Controller
      */
     public function index()
     {
-        //
+        // Retrieve all leaves
+        $leaves = Leaves::all();
+
+        // Pass leaves data to the view
+        return view('leaves.index', ['leaves' => $leaves]);
     }
 
     /**
@@ -20,7 +28,17 @@ class LeavesController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        $departments = Department::all();
+        $designations = Designation::all();
+        $leaves = []; // or $leaves = null;
+    
+        return view('leaves', [
+            'employees' => $employees,
+            'departments' => $departments,
+            'designations' => $designations,
+            'leaves' => $leaves, // Pass $leaves to the view
+        ]);
     }
 
     /**
@@ -28,7 +46,19 @@ class LeavesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+            $request->validate([
+                'start_leave' => 'required',
+                'end_leave' => 'required',
+                'status' => 'required',
+                'employees_id' => 'required',
+                'leave_type' => 'required',
+            ]);
+        
+            Leaves::create($request->all());
+        
+            return redirect()->route('milestone2')->with('success', 'Designation created successfully');
+        }
     }
 
     /**
