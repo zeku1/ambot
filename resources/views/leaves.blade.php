@@ -95,7 +95,7 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Employee ID</th>
                 <th>Employee</th>
                 <th>Start of Leave</th>
                 <th>End of Leave</th>
@@ -106,8 +106,8 @@
         <tbody>
             @foreach($leaves as $leave)
             <tr>
-                <td>{{ $leave->id }}</td>
-                <td>{{ $leave->employees_id }}</td>
+                <td>{{ $leave->employee->employee_number }}</td>
+                <td>{{ $leave->employee->firstname}} {{$leave->employee->lasttname}}</td>
                 <td>{{ $leave->start_leave }}</td>
                 <td>{{ $leave->end_leave }}</td>
                 <td>{{ $leave->leave_type }}</td>
@@ -137,25 +137,25 @@
             </div>
             <div class="modal-body">
                 <!-- Form for adding new leaves -->
-                <form action="{{ route('leaves.store') }}" method="POST">
+<form action="{{ route('leaves.store') }}" method="POST">
     @csrf
         <!-- Dropdown for Employee -->
         <div class="form-group">
-            <label for="employee_id">Employee</label>
-            <select class="form-control" id="employee_id" name="employee_id" required onchange="handleDropdownSelection(this.value)">
+            <label for="employees_id">Employee</label>
+            <select class="form-control" id="employees_id" name="employees_id" required onchange="handleDropdownSelection(this.value)">
                 <option value="" disabled selected>Select Employee</option>
                 @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}">{{ $employee->employee_name }}</option>
+                    <option value="{{ $employee->id }}">{{ $employee->firstname }} {{ $employee->lastname}}</option>
                 @endforeach
             </select>
         </div>
     <div class="form-group">
         <label for="start_leave">Start of Leave</label>
-        <input type="text" class="form-control" id="start_leave" name="start_leave" required>
+        <input type="date" class="form-control" id="start_leave" name="start_leave" required>
     </div>
     <div class="form-group">
         <label for="end_leave">End of Leave</label>
-        <input type="text" class="form-control" id="end_leave" name="end_leave" required>
+        <input type="date" class="form-control" id="end_leave" name="end_leave" required>
     </div>
     <div class="form-group">
         <label for="leave_type">Leave Type</label>

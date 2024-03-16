@@ -31,7 +31,7 @@ class LeavesController extends Controller
         $employees = Employee::all();
         $departments = Department::all();
         $designations = Designation::all();
-        $leaves = []; // or $leaves = null;
+        $leaves = Leaves::all();
     
         return view('leaves', [
             'employees' => $employees,
@@ -47,17 +47,16 @@ class LeavesController extends Controller
     public function store(Request $request)
     {
         {
-            $request->validate([
+            $validated=$request->validate([
                 'start_leave' => 'required',
                 'end_leave' => 'required',
                 'status' => 'required',
                 'employees_id' => 'required',
                 'leave_type' => 'required',
             ]);
+            Leaves::create($validated);
         
-            Leaves::create($request->all());
-        
-            return redirect()->route('milestone2')->with('success', 'Designation created successfully');
+            return redirect()->back()->with('success', 'Designation created successfully');
         }
     }
 

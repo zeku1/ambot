@@ -62,3 +62,7 @@ Route::delete('/designations/{id}', 'DesignationController@destroy')->name('desi
 Route::post('/leaves/store', [LeavesController::class, 'store'])->name('leaves.store');
 
 Route::get('/leaves/create', [LeavesController::class, 'create'])->name('leaves.create');
+
+Route::get('/leaves/edit', [LeavesController::class, 'create'])->name('leaves.edit');
+
+Route::get('/leaves/destroy', [LeavesController::class, 'create'])->name('leaves.destroy');

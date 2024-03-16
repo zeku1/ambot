@@ -33,25 +33,6 @@ class Employee extends Authenticatable
         'zipcode',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function designation()
     {
         return $this->hasOneThrough(Designation::class, AssignDesignation::class, 'employee_number', 'id', 'employee_number', 'designation_id');
@@ -65,5 +46,9 @@ class Employee extends Authenticatable
     public function department()
     {
         return $this->hasOneThrough(Department::class, AssignDesignation::class, 'employee_number', 'id', 'employee_number', 'designation_id');
+    }
+    public function leaves()
+    {
+        return $this->hasMany(Leaves::class, 'employees_id');
     }
 }
