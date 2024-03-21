@@ -63,6 +63,6 @@ Route::post('/leaves/store', [LeavesController::class, 'store'])->name('leaves.s
 
 Route::get('/leaves/create', [LeavesController::class, 'create'])->name('leaves.create');
 
-Route::get('/leaves/edit', [LeavesController::class, 'create'])->name('leaves.edit');
+Route::delete('/leaves/{leave}', [LeavesController::class, 'destroy'])->name('leaves.destroy');
 
-Route::get('/leaves/destroy', [LeavesController::class, 'create'])->name('leaves.destroy');
+Route::get('/leaves', [LeavesController::class, 'index'])->name('leaves.index');

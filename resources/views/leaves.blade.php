@@ -60,7 +60,6 @@
     </style>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <a class="navbar-brand" href="#">Employee Database</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +112,6 @@
                 <td>{{ $leave->leave_type }}</td>
                 <td>{{ $leave->status }}</td>
                 <td>
-                    <a href="{{ route('leaves.edit', $leave->id) }}" class="btn btn-warning">Edit</a>
                     <form action="{{ route('leaves.destroy', $leave->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')

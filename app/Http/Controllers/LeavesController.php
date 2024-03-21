@@ -11,21 +11,15 @@ use Illuminate\Routing\Controller;
 
 class LeavesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // Retrieve all leaves
         $leaves = Leaves::all();
-
-        // Pass leaves data to the view
-        return view('leaves.index', ['leaves' => $leaves]);
+        $employees = Employee::all();
+        return view('leaves', [
+            'leaves' => $leaves,
+            'employees' => $employees,
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $employees = Employee::all();
@@ -37,13 +31,11 @@ class LeavesController extends Controller
             'employees' => $employees,
             'departments' => $departments,
             'designations' => $designations,
-            'leaves' => $leaves, // Pass $leaves to the view
+            'leaves' => $leaves, 
         ]);
     }
+    
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         {
@@ -60,35 +52,9 @@ class LeavesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Leaves $leaves)
+    public function destroy(Leaves $leave)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Leaves $leaves)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Leaves $leaves)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Leaves $leaves)
-    {
-        //
+        $leave->delete();
+        return redirect()->route('leaves.index')->with('success', 'Leave deleted successfully');
     }
 }

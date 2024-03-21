@@ -96,7 +96,6 @@
                 <!-- Add other options as needed -->
             </select>
         </div>
-
         <button type="submit" class="btn btn-primary">Update Employee</button>
     </form>
 </div>
