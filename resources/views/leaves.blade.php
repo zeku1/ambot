@@ -140,15 +140,28 @@
 <form action="{{ route('leaves.store') }}" method="POST">
     @csrf
         <!-- Dropdown for Employee -->
-        <div class="form-group">
-            <label for="employees_id">Employee</label>
-            <select class="form-control" id="employees_id" name="employees_id" required onchange="handleDropdownSelection(this.value)">
-                <option value="" disabled selected>Select Employee</option>
-                @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}">{{ $employee->firstname }} {{ $employee->lastname}}</option>
-                @endforeach
-            </select>
-        </div>
+<div class="form-group">
+    <label for="employees_id">Employee</label>
+    <select class="form-control" id="employees_id" name="employees_id" required>
+        <option value="" disabled selected>Select Employee</option>
+        @foreach($employees as $employee)
+            <option value="{{ $employee->id }}">{{ $employee->firstname }} {{ $employee->lastname}}</option>
+        @endforeach
+    </select>
+</div>
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#employees_id').select2({
+                placeholder: "Search for an employee",
+                allowClear: true
+            });
+        });
+    </script>
+@endpush
+
     <div class="form-group">
         <label for="start_leave">Start of Leave</label>
         <input type="date" class="form-control" id="start_leave" name="start_leave" required>

@@ -11,14 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('leaves', function (Blueprint $table) {
+        Schema::create('deductions', function (Blueprint $table) {
             $table->id();
+            $table->string('type_of_earning');
+            $table->string('amount');
+            $table->date('date');
             $table->timestamps();
-            $table->foreignId('employees_id');
-            $table->date('start_leave');
-            $table->date('end_leave');
-            $table->string('leave_type');
-            $table->string('status');
         });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('deductions');
     }
 };
