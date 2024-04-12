@@ -16,7 +16,13 @@ class EarningsController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::all();
+        $earnings = Earnings::all();
+    
+        return view('earnings', [
+            'employees' => $employees,
+            'earnings' => $earnings, 
+        ]);
     }
 
     /**

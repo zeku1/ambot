@@ -20,65 +20,39 @@ use App\Http\Controllers\EarningsController;
 |
 */
 
+
 Route::get('/', [DatabaseController::class, 'milestone2']);
+
 Route::get('/milestone2', [DatabaseController::class, 'milestone2'])->name('milestone2');
 
 Route::get('/create_department', [DatabaseController::class, 'index']);
 
-Route::post('/employees', [DatabaseController::class, 'store'])->name('employees.store');
-
-Route::get('/employees', [DatabaseController::class, 'index'])->name('employees.index');
-
-Route::get('/employees/{employee}/edit', [DatabaseController::class, 'edit'])->name('employees.edit');
-
-Route::put('/employees/{employee}', [DatabaseController::class, 'update'])->name('employees.update');
-
-Route::delete('/employees/{employee}', [DatabaseController::class, 'destroy'])->name('employees.destroy');
-
-Route::get('/designations/create', [DesignationController::class, 'create'])->name('designations.create');
-
-Route::post('/designations', [DesignationController::class, 'store'])->name('designations.store');
-
-Route::get('/departments/create', [DepartmentController::class, 'create'])->name('departments.create');
-
-Route::get('/employees/{employee}', [DatabaseController::class, 'edit'])->name('employees.edit');
-
-Route::post('/departments', [DepartmentController::class, 'store'])->name('departments.store');
-
-Route::get('/designations', [DesignationController::class, 'index'])->name('designations.index');
-
-Route::get('/departments', [DepartmentController::class, 'index'])->name('departments.index');
-
-Route::get('/departments/designations', [DepartmentController::class, 'departmentsDesignations']);
-
-Route::get('/create_department', [DatabaseController::class, 'createDepartment'])->name('create_department');
-
-Route::get('/create_designation', [DatabaseController::class, 'createDesignation'])->name('create_designation');
+Route::resource('employees', DatabaseController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update', 'destroy']);
 
 Route::get('/employees/search', [DatabaseController::class, 'search'])->name('employees.search');
 
+Route::resource('designations', DesignationController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update', 'destroy']);
+
+Route::resource('departments', DesignationController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update', 'destroy']);
+
+Route::get('/departments/designations', [DepartmentController::class, 'departmentsDesignations']);
+
 Route::get('/search_results', [DatabaseController::class, 'search'])->name('search_results');
 
-Route::delete('/designations/{id}', 'DesignationController@destroy')->name('designations.destroy');
-
-Route::post('/leaves/store', [LeavesController::class, 'store'])->name('leaves.store');
-
-Route::get('/leaves/create', [LeavesController::class, 'create'])->name('leaves.create');
+Route::resource('leaves', LeavesController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update']);
 
 Route::delete('/leaves/{leave}', [LeavesController::class, 'destroy'])->name('leaves.destroy');
 
-Route::get('/leaves', [LeavesController::class, 'index'])->name('leaves.index');
-
-Route::get('/earnings', [EarningsController::class, 'create'])->name('earnings.create');
-
-Route::post('/earnings/store', [EarningsController::class, 'store'])->name('earnings.store');
+Route::resource('earnings', EarningsController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update']);
 
 Route::delete('/earnings/{earnings}', [EarningsController::class, 'destroy'])->name('earnings.destroy');
 
-Route::get('/deductions', [DeductionsController::class, 'create'])->name('deductions.create');
-
-Route::post('/deductions/store', [DeductionsController::class, 'store'])->name('deductions.store');
+Route::resource('deductions', DeductionsController::class)
+    ->only(['index', 'create' ,'store', 'edit' ,'update']);
 
 Route::delete('/deductions/{deductions}', [DeductionsController::class, 'destroy'])->name('deductions.destroy');
-
-

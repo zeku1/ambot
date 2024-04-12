@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+@include('components.header',['title' => 'Department'])
 
     <div class="container">
 
@@ -34,5 +32,4 @@
         </form>
 
     </div>
-
-@endsection
+@include('components.footer')

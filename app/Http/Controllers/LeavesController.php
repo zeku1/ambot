@@ -13,13 +13,19 @@ class LeavesController extends Controller
 {
     public function index()
     {
-        $leaves = Leaves::all();
         $employees = Employee::all();
+        $departments = Department::all();
+        $designations = Designation::all();
+        $leaves = Leaves::all();
+    
         return view('leaves', [
-            'leaves' => $leaves,
             'employees' => $employees,
+            'departments' => $departments,
+            'designations' => $designations,
+            'leaves' => $leaves, 
         ]);
     }
+    
     public function create()
     {
         $employees = Employee::all();
@@ -55,6 +61,6 @@ class LeavesController extends Controller
     public function destroy(Leaves $leave)
     {
         $leave->delete();
-        return redirect()->route('leaves.index')->with('success', 'Leave deleted successfully');
+        return redirect()->back()->with('success', 'Leave deleted successfully');
     }
 }

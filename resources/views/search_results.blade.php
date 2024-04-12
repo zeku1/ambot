@@ -1,6 +1,5 @@
-@extends('layouts.app')
+@include('components.header',['title' => 'Search Results'])
 
-@section('content')
     <div class="container mt-4">
         <h2>Search Results</h2>
 
@@ -82,4 +81,5 @@
             <p>No results found.</p>
         @endif
     </div>
-@endsection
+    
+@include('components.footer')

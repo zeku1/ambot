@@ -17,12 +17,11 @@ class DepartmentController extends Controller
     }
 
     public function create()
-{
-    $departments = Department::all();
-    return view('departments.create_department', compact('departments'));
-}
+    {
+        $departments = Department::all();
+        return view('departments.create_department', compact('departments'));
+    }
     
-
     public function store(Request $request)
     {
         $request->validate([
@@ -56,6 +55,14 @@ class DepartmentController extends Controller
     {
         $department->delete();
         return redirect()->route('departments.index')->with('success', 'Department deleted successfully');
+    }
+
+    public function departmentsDesignations()
+    {
+        $departments = Department::all();
+        $designations = Designation::all();
+
+        return view('departments.departments_designations', compact('departments', 'designations'));
     }
 }
 

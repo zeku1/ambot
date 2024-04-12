@@ -16,7 +16,13 @@ class DeductionsController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::all();
+        $deductions = Deductions::all();
+    
+        return view('deductions', [
+            'employees' => $employees,
+            'deductions' => $deductions, 
+        ]);
     }
 
     /**

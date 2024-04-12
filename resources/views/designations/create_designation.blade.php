@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+@include('components.header',['title' => 'Designation'])
     <div class="container">
         <h2>Create New Designation</h2>
         <form action="{{ route('designations.store') }}" method="POST">
@@ -32,4 +30,4 @@
         </form>
         
     </div>
-@endsection
+@include('components.footer')
