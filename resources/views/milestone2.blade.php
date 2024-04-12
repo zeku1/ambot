@@ -80,6 +80,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('leaves.create') }}">Leaves</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('earnings.create') }}">Earnings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('deductions.create') }}">Deductions</a>
+            </li>
         </ul>
     </div>
 </nav>

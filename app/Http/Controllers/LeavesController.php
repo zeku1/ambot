@@ -48,7 +48,7 @@ class LeavesController extends Controller
             ]);
             Leaves::create($validated);
         
-            return redirect()->back()->with('success', 'Designation created successfully');
+            return redirect()->back()->with('success', 'Leaves created successfully');
         }
     }
 

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Deductions;
+use App\Models\Department;
+use App\Models\Designation;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class DeductionsController extends Controller
 {
@@ -20,7 +24,13 @@ class DeductionsController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        $deductions = Deductions::all();
+    
+        return view('deductions', [
+            'employees' => $employees,
+            'deductions' => $deductions, 
+        ]);
     }
 
     /**
@@ -28,7 +38,17 @@ class DeductionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+            $validated=$request->validate([
+                'employees_id' => 'required',
+                'type_of_deductions' => 'required',
+                'amount' => 'required',
+                'date' => 'required',
+            ]);
+            Deductions::create($validated);
+        
+            return redirect()->back()->with('success', 'Deductions created successfully');
+        }
     }
 
     /**
@@ -60,6 +80,7 @@ class DeductionsController extends Controller
      */
     public function destroy(Deductions $deductions)
     {
-        //
+        $deductions->delete();
+        return redirect()->back()->with('success', 'Deduction deleted successfully');
     }
 }

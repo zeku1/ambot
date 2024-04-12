@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('deductions', function (Blueprint $table) {
             $table->id();
-            $table->string('type_of_earning');
+            $table->foreignId('employees_id');
+            $table->string('type_of_deductions');
             $table->string('amount');
             $table->date('date');
             $table->timestamps();
+            
         });
     }
 

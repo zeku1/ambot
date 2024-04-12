@@ -5,7 +5,9 @@ use \App\Http\Controllers\DatabaseController;
 use \App\Http\Controllers\DepartmentController;
 use \App\Http\Controllers\DesignationController;
 use \App\Http\Controllers\AssignDesignationController;
+use App\Http\Controllers\DeductionsController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Controllers\EarningsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +68,17 @@ Route::get('/leaves/create', [LeavesController::class, 'create'])->name('leaves.
 Route::delete('/leaves/{leave}', [LeavesController::class, 'destroy'])->name('leaves.destroy');
 
 Route::get('/leaves', [LeavesController::class, 'index'])->name('leaves.index');
+
+Route::get('/earnings', [EarningsController::class, 'create'])->name('earnings.create');
+
+Route::post('/earnings/store', [EarningsController::class, 'store'])->name('earnings.store');
+
+Route::delete('/earnings/{earnings}', [EarningsController::class, 'destroy'])->name('earnings.destroy');
+
+Route::get('/deductions', [DeductionsController::class, 'create'])->name('deductions.create');
+
+Route::post('/deductions/store', [DeductionsController::class, 'store'])->name('deductions.store');
+
+Route::delete('/deductions/{deductions}', [DeductionsController::class, 'destroy'])->name('deductions.destroy');
+
+

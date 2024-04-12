@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('employees_id');
             $table->string('type_of_earnings');
             $table->string('amount');
             $table->date('date');

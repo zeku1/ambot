@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\Employee;
 use App\Models\Earnings;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class EarningsController extends Controller
 {
@@ -20,7 +24,13 @@ class EarningsController extends Controller
      */
     public function create()
     {
-        //
+        $employees = Employee::all();
+        $earnings = Earnings::all();
+    
+        return view('earnings', [
+            'employees' => $employees,
+            'earnings' => $earnings, 
+        ]);
     }
 
     /**
@@ -28,7 +38,17 @@ class EarningsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+            $validated=$request->validate([
+                'employees_id' => 'required',
+                'type_of_earnings' => 'required',
+                'amount' => 'required',
+                'date' => 'required',
+            ]);
+            Earnings::create($validated);
+        
+            return redirect()->back()->with('success', 'Earnings created successfully');
+        }
     }
 
     /**
@@ -60,6 +80,7 @@ class EarningsController extends Controller
      */
     public function destroy(Earnings $earnings)
     {
-        //
+        $earnings->delete();
+        return redirect()->back()->with('success', 'Earning deleted successfully');
     }
 }

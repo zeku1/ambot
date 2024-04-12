@@ -79,6 +79,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('create_designation') }}">Leaves</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('earnings.create') }}">Earnings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('deductions.create') }}">Deductions</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -213,6 +219,10 @@
     console.log('Department ID:', departmentId);
 }
 </script>
-
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 </body>
 </html>
